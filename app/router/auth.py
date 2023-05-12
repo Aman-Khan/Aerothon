@@ -15,7 +15,8 @@ def signUp(opt: str, info: schemas.signUp ,db: Session = Depends(get_db)):
     if opt=='r':
         info = schemas.signUpFacility(user_id=info.user_id, pwd=info.pwd)
     
-    srch_usr = db.query(mod).filter(func.binary(mod.user_id)==info.user_id).first()
+    # srch_usr = db.query(mod).filter(func.binary(mod.user_id)==info.user_id).first()
+    srch_usr = db.query(mod).filter(mod.user_id==info.user_id).first()
 
     if srch_usr is not None:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Email is already registered")
@@ -32,7 +33,6 @@ def signUp(opt: str, info: schemas.signUp ,db: Session = Depends(get_db)):
 
 @router.post('/{opt}/signin')
 def signIn(opt: str, info: schemas.signIn, db:Session = Depends(get_db)):
-    print(info.user_id)
     roleMap = {'m': models.Manufacturer, 'a': models.Airline, 'r': models.RFacility}
     mod = roleMap.get(opt)
 
@@ -42,7 +42,8 @@ def signIn(opt: str, info: schemas.signIn, db:Session = Depends(get_db)):
     user_id = info.user_id
     pwd = info.pwd
         
-    search = db.query(mod).filter(func.binary(mod.user_id)==user_id).first()
+    # search = db.query(mod).filter(func.binary(mod.user_id)==user_id).first()
+    search = db.query(mod).filter(mod.user_id==user_id).first()
 
     if search is None: raise HTTPException(status_code=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION, detail='invalid credentials')
     else:

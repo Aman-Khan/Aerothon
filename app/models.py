@@ -46,20 +46,23 @@ class Manufacturer(Base):
     user_id = Column(VARCHAR(100), primary_key=True, nullable=False)
     pwd = Column(VARCHAR(100), nullable=False)
     company = Column(VARCHAR(100), nullable=False)
-    created_at = Column(TIMESTAMP, nullable=False, server_default=text('NOW()'))
+    # created_at = Column(TIMESTAMP, nullable=False, server_default=text('NOW()'))
+    created_at = Column(TIMESTAMP, nullable=False, server_default=text('CURRENT_TIMESTAMP'))
 
 class Airline(Base):
     __tablename__ = 'airline'
     user_id = Column(VARCHAR(100), primary_key=True, nullable=False)
     pwd = Column(VARCHAR(100), nullable=False)
     company = Column(VARCHAR(100), nullable=False)
-    created_at = Column(TIMESTAMP, nullable=False, server_default=text('NOW()'))
+    # created_at = Column(TIMESTAMP, nullable=False, server_default=text('NOW()'))
+    created_at = Column(TIMESTAMP, nullable=False, server_default=text('CURRENT_TIMESTAMP'))
 
 class RFacility(Base):
     __tablename__ = 'rfacility'
     user_id = Column(VARCHAR(100), primary_key=True, nullable=False)
     pwd = Column(VARCHAR(100), nullable=False)
-    created_at = Column(TIMESTAMP, nullable=False, server_default=text('NOW()'))
+    # created_at = Column(TIMESTAMP, nullable=False, server_default=text('NOW()'))
+    created_at = Column(TIMESTAMP, nullable=False, server_default=text('CURRENT_TIMESTAMP'))
 
 
 Base.metadata.create_all(bind=engine)
