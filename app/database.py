@@ -17,3 +17,8 @@ def get_db():
         yield db
     except:
         db.close()
+
+# con = next(get_db())
+# con.execute()
+# db = SessionLocal()
+# db.execute
