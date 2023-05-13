@@ -2,6 +2,25 @@ from typing import Optional
 from pydantic import BaseModel, EmailStr
 from datetime import datetime
 
+class fullDet(BaseModel):
+    pid: int
+    part_name: str
+    mat_comp: str
+    age: int
+    condi: bool
+    manufacturer: str
+    aircraft_mod: str
+
+    class Config:
+        orm_mode=True
+
+class superVis(BaseModel):
+    recycleMat: dict
+    repurposeMat: dict
+
+    class Config:
+        orm_mode=True
+
 class signUpFacility(BaseModel):
     user_id: str
     pwd: str
@@ -31,6 +50,11 @@ class signIn(BaseModel):
     class Config:
         orm_mode=True
 
+class tokenData(BaseModel):
+    user_id: str
+    opt: str
+    class Config:
+        orm_mode = True
 
 # class signUpInfo(BaseModel):
 #     email: EmailStr
@@ -84,3 +108,4 @@ class signIn(BaseModel):
 #     user_id: str
 #     class Config:
 #         orm_mode = True
+

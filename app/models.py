@@ -40,6 +40,24 @@ class NewManuData(Base):
     nEneConsum = Column(DOUBLE, nullable=False)
     nToxicScore = Column(DOUBLE, nullable=False)
 
+class recycleEffortScore(Base):
+    __tablename__='recycleEffortScore'
+    pid = Column(INTEGER, primary_key=True, nullable=False)
+    part_name = Column(VARCHAR(100), nullable=False)
+    effort = Column(DOUBLE, nullable=False)
+
+class sustainibilityScore(Base):
+    __tablename__='sustainibilityScore'
+    pid = Column(INTEGER, primary_key=True, nullable=False)
+    part_name = Column(VARCHAR(100), nullable=False)
+    score = Column(DOUBLE, nullable=False)
+
+class costScore(Base):
+    __tablename__='costScore'
+    pid = Column(INTEGER, primary_key=True, nullable=False)
+    part_name = Column(VARCHAR(100), nullable=False)
+    score = Column(DOUBLE, nullable=False)
+
 #credentials
 class Manufacturer(Base):
     __tablename__ = 'manufacturer'

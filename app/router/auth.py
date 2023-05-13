@@ -49,5 +49,9 @@ def signIn(opt: str, info: schemas.signIn, db:Session = Depends(get_db)):
     else:
         if not utils.verify(pwd, search.pwd):  raise HTTPException(status_code=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION, detail='invalid credentials')
         else: 
-            token = oauth2.create_access_token({'data': user_id, 'opt':opt})
+            data = {
+                'user_id': user_id,
+                'opt':opt
+            }
+            token = oauth2.create_access_token(data)
             return {'token':token}

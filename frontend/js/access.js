@@ -66,17 +66,23 @@ async function submitAccessForm(event) {
       if (response.status===200) {
         console.log('Form submitted successfully');
         const data = await response.json();
-        console.log(data.to);
         form.reset();
   
-        const { token } = data;
-        // storing token and operator id for future use in authentication and for other use 
-        sessionStorage.setItem('token', token); 
+        if(checkForm[0]==='l'){
+          const { token } = data;
+          // storing token and operator id for future use in authentication and for other use 
+          sessionStorage.setItem('token', token); 
+          sessionStorage.setItem('role', formData.get('role')); 
 
-        window.location.href = 'dashboard.html'; // navigate to the operaton page
+          console.log("foward")
+          window.location.href = 'dashboard.html'; // navigate to the operaton page
+        }
+        else{
+          alert(` Sucessfully registered - ${response.status}`);
+        }
       } else {
         const errorText = await response.text();
-        alert(`Invalid Credentials - ${response.status}`);
+        alert(` ${response.statusText} - ${response.status}`);
         console.log(response.statusText);
         throw new Error('Invalid Credentials');
       }

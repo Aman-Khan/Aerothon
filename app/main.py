@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from .router import auth
+from .router import auth, visualapi
 from pydantic import BaseSettings
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -17,3 +17,5 @@ app.add_middleware(
 )
 
 app.include_router(auth.router)
+app.include_router(visualapi.router)
+
