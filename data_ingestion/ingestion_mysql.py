@@ -9,13 +9,39 @@ cursor.execute('USE aero_db')
 # data = cursor.fetchall()
 # print(data)
 
+def getSustainibilityScore(row):
+    data = {
+        'New Parts Carbon Footprint (kg CO2e)': 0.2,
+        'Recycled Parts Carbon Footprint (kg CO2e)': 0.2,
+        'Water Usage - New Parts (liters)': 0.1,
+        'Water Usage - Recycled Parts (liters)': 0.1,
+        'Landfill Waste - New Parts (kg)': 0.1,
+        'Landfill Waste - Recycled Parts (kg)': 0.1,
+        'Energy Consumption - New Parts (kWh)': 0.1,
+        'Energy Consumption - Recycled Parts (kWh)': 0.1,
+        'Recycling Rate (%)': 0.05,
+        'Toxicity Score - New Parts': 0.025,
+        'Toxicity Score - Recycled Parts': 0.025,
+        'Remanufacturing Potential': 0.025,
+        'Life Cycle Assessment Score': 0.025
+    }
+    sustainScore = sum(row[value] * weight for value, weight in data.items())
+    return sustainScore
+
+def getRecycleEffort(row):
+    data = {
+        'Recycling Rate (%)' : 0.4,
+        'Remanufacturing Potential (%)': 0.3,
+        'Life Cycle Assessment Score':0.3
+    }
+    effort = sum(row[value] * weight for value, weight in data.items())
+    return effort
 
 # Read Excel file
 df = pd.read_excel('aircraft_parts_data.xlsx')
 
-columns = df.columns.tolist()
 # print(columns)
-data = df.head(1)
+data = df.head(100)
 
 for index, row in data.iterrows():
     try:
@@ -28,8 +54,11 @@ for index, row in data.iterrows():
         location = row['Location']
         manufacturer = row['Manufacturer']
         aircraft_mod = row['Aircraft Model']
-        
-        query1 = f"INSERT INTO part_tb(part_name, mat_comp, age, condi, location, manufacturer, aircraft_mod) VALUES ('{part_name}', '{mat_comp}', {age}, {condition}, '{location}', '{manufacturer}', '{aircraft_mod}')"
+        recycleEfforts = getRecycleEffort(row)
+        sustainScore = getSustainibilityScore(row)
+        cost = row['Recycled Parts Carbon Footprint (kg CO2e)'] - row['New Parts Carbon Footprint (kg CO2e)']
+
+        query1 = f"INSERT INTO part_tb(part_name, mat_comp, age, condi, location, manufacturer, aircraft_mod,  recycle_effort, SustainData, cost) VALUES ('{part_name}', '{mat_comp}', {age}, {condition}, '{location}', '{manufacturer}', '{aircraft_mod}',{recycleEfforts}, {sustainScore }, {cost})"
     
         cursor.execute(query1)
         con.commit()
