@@ -6,7 +6,7 @@
   
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  
+  <title>Search Parts</title>
   <!-- Chart.js CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -28,10 +28,52 @@
       </ul>
     </div>
   </nav>
-  
 
+  <div class="d-flex justify-content-center" style="height: 20vh;">
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2 " type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
 
-  </body>
-  </html>
+    
+  <div class="container w-25 float-left mx-5" style="background-color: black; ">
+
+  </div>
+  <div class="container w-50 float-right mx-5" style="background-color: black;">
+    <div class="col-md-4 graph-section">
+        <!-- Doughnut Chart section -->
+        <div class="chart">
+          <canvas id="myChart"></canvas>
+        </div>
+        <h4 class="my-5">Recycle Effort Analysis</h4>
+      </div>
+  </div>
+  <script>
+    const ctx = document.getElementById('myChart');
+            
+            new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Recycle', 'Repurpose'],
+                datasets: [{
+                label: '# of Votes',
+                data: [sum1, sum2],
+                borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                y: {
+                    beginAtZero: true
+                }
+                }
+            }
+            });
+  </script>
+  <!-- <script src="searchpart.js"></script> -->
+</body>
+</html>
+
 
 
